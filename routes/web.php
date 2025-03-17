@@ -19,6 +19,13 @@ use App\Http\Controllers\RatingController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('lang/{lang}', function ($lang){
+
+  session()->put('locale', $lang);
+
+  return redirect()->route('home');
+})->name('lang');
+
 Route::get('/add-rating', [RatingController::class, 'add'])->name('add-rating');
 Route::post('/add-rating', [RatingController::class, 'add']);;
 
