@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Notifications\PostCreatedMail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -90,7 +91,7 @@ class AdminController extends Controller
 
         $post = Post::updateOrCreate(['id' => $post?->id], $data);
         session()->put('status', $post->wasRecentlyCreated ? 'Post publié !' : 'Post mis à jour !');
-
+        auth()->user()->notify(new PostCreatedMail($post));
         if($request->isMethod('post')){
             $post->user_id = Auth::id();
             $post->note = 0;
