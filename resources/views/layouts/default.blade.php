@@ -31,105 +31,123 @@
 
     <!-- Top Bar Nav -->
     <nav class="w-full py-4 bg-blue-800 shadow">
-        <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
 
-            <nav>
-                <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('posts.index')}}">{{ __('messages.home')}}</a></li>
-                    <div class="relative inline-block text-left">
-                        <!-- Bouton pour afficher la liste des langues -->
-                        <button id="dropdownButton" class="flex items-center space-x-2 text-xl font-semibold text-gray-800 hover:text-blue-600">
-                            <!-- Affichage du drapeau actuel en fonction de la locale -->
-                            @php
-                            $locale = app()->getLocale();  // Récupérer la locale actuelle
-                        @endphp
+        <nav>
+            <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
+                <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('posts.index')}}">{{ __('messages.home')}}</a></li>
+                <div class="relative inline-block text-left">
+                    <!-- Bouton pour afficher la liste des langues -->
+                    <button id="dropdownButton" class="flex items-center space-x-2 text-xl font-semibold text-gray-800 hover:text-blue-600">
+                        <!-- Affichage du drapeau actuel en fonction de la locale -->
+                        @php
+                        $locale = app()->getLocale();  // Récupérer la locale actuelle
+                    @endphp
 
-                        @switch($locale)
-                            @case('fr')
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Français" class="w-6 h-4 inline">
-                                @break
+                    @switch($locale)
+                        @case('fr')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Français" class="w-6 h-4 inline">
+                            @break
 
-                            @case('es')
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="w-6 h-4 inline">
-                                @break
+                        @case('es')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="w-6 h-4 inline">
+                            @break
 
-                            @case('de')
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg" alt="Deutsch" class="w-6 h-4 inline">
-                                @break
+                        @case('de')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg" alt="Deutsch" class="w-6 h-4 inline">
+                            @break
 
-                            @case('it')
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg" alt="Italiano" class="w-6 h-4 inline">
-                                @break
+                        @case('it')
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg" alt="Italiano" class="w-6 h-4 inline">
+                            @break
 
-                            @default
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="w-6 h-4 inline">
-                        @endswitch
+                        @default
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="w-6 h-4 inline">
+                    @endswitch
 
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
 
-                        <!-- Liste déroulante des langues -->
-                        <div id="languageDropdown" class="absolute right-0 mt-2 w-16 bg-white rounded-lg shadow-lg hidden">
-                            <div class="py-1">
-                                <!-- Lien pour changer la langue en français -->
-                                <a href="{{ route('lang', 'fr' )}}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Français" class="w-6 h-4 mr-2">
-
-                                </a>
-                                <!-- Lien pour changer la langue en espagnol -->
-                                <a href="{{ route('lang', 'en' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="w-6 h-4 mr-2">
-
-                                </a>
-                                <!-- Lien pour changer la langue en allemand -->
-                                <a href="{{ route('lang', 'de' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg" alt="Deutsch" class="w-6 h-4 mr-2">
-
-                                </a>
-                                <!-- Lien pour changer la langue en italien -->
-                                <a href="{{ route('lang', 'it' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg" alt="Italiano" class="w-6 h-4 mr-2">
-
-                                </a>
-                            </div>
+                    <!-- Liste déroulante des langues -->
+                    <div id="languageDropdown" class="absolute right-0 mt-2 w-16 bg-white rounded-lg shadow-lg hidden">
+                        <div class="py-1">
+                            <!-- Lien pour changer la langue en français -->
+                            <a href="{{ route('lang', 'fr' )}}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Français" class="w-6 h-4 mr-2">
+                            </a>
+                            <!-- Lien pour changer la langue en espagnol -->
+                            <a href="{{ route('lang', 'en' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="w-6 h-4 mr-2">
+                            </a>
+                            <!-- Lien pour changer la langue en allemand -->
+                            <a href="{{ route('lang', 'de' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg" alt="Deutsch" class="w-6 h-4 mr-2">
+                            </a>
+                            <!-- Lien pour changer la langue en italien -->
+                            <a href="{{ route('lang', 'it' ) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg" alt="Italiano" class="w-6 h-4 mr-2">
+                            </a>
                         </div>
                     </div>
-                    @guest <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('login')}}">Login</a></li>@endguest
-                </ul>
-            </nav>
+                </div>
+                @guest <li><a class="hover:text-gray-200 hover:underline px-4" href="{{ route('login')}}">Login</a></li>@endguest
+            </ul>
+        </nav>
 
-            <div class="flex items-center text-lg no-underline text-white pr-6">
-                <a class="" href="https://web.facebook.com/zouheir.gurir">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a class="pl-6" href="#">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a class="pl-6" href="#">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a class="pl-6" href="#">
-                    <i class="fab fa-linkedin"></i>
-                </a>
+        <div class="flex items-center text-lg no-underline text-white pr-6">
+            <a class="" href="https://web.facebook.com/zouheir.gurir">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="pl-6" href="#">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="pl-6" href="#">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a class="pl-6" href="#">
+                <i class="fab fa-linkedin"></i>
+            </a>
+   @php
+    $unreadCount = auth()->user()->unreadNotifications()->count();
+@endphp
+          <div class="relative pl-6">
+    <!-- Icône de cloche -->
+    <button class="relative hover:opacity-80 transition-opacity duration-200 focus:outline-none">
+        <!-- Heroicons bell -->
+        <svg class="w-10 h-8 text-white" fill="currentColor" stroke-width="8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
 
-    @if (Auth::user()->isAdmin())
-    <a title="Gestion des postes" href="{{ route('admin.posts.index') }}" class="pl-6" >
-    <svg fill="#ffffff" width="64px" height="64px" viewBox="-115.2 -115.2 2150.40 2150.40" xmlns="http://www.w3.org/2000/svg" class="h-9 w-8 object-cover rounded-full"><g id="SVGRepo_bgCarrier" stroke-width="0"/><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/><g id="SVGRepo_iconCarrier"><path d="m773.596 1069.654 711.086 711.085c39.632 39.632 104.336 39.632 144.078 0l138.276-138.385c19.268-19.269 29.888-44.778 29.888-71.93 0-27.26-10.62-52.77-29.888-72.039l-698.714-698.714 11.495-32.625c63.5-178.675 18.284-380.45-115.284-514.018-123.715-123.605-305.126-171.01-471.648-128.313l272.281 272.282c32.516 32.406 50.362 75.652 50.362 121.744 0 45.982-17.846 89.227-50.362 121.744L654.48 751.17c-67.222 67.003-176.375 67.003-243.488 0L138.711 478.889c-42.589 166.522 4.707 347.934 128.313 471.648 123.714 123.715 306.22 172.325 476.027 127.218l30.545-8.101ZM1556.611 1920c-54.084 0-108.168-20.692-149.333-61.857L740.095 1190.96c-198.162 41.712-406.725-19.269-550.475-163.019C14.449 852.771-35.256 582.788 65.796 356.27l32.406-72.696 390.194 390.193c24.414 24.305 64.266 24.305 88.68 0l110.687-110.686c11.824-11.934 18.283-27.59 18.283-44.34 0-16.751-6.46-32.516-18.283-44.34L297.569 84.207 370.265 51.8C596.893-49.252 866.875.453 1041.937 175.515c155.026 155.136 212.833 385.157 151.851 594.815l650.651 650.651c39.961 39.852 61.967 92.95 61.967 149.443 0 56.383-22.006 109.482-61.967 149.334l-138.275 138.385c-41.275 41.165-95.36 61.857-149.553 61.857Z" fill-rule="evenodd"/> </g></svg>
-    </a>
-    @endif
-    @auth
-    <a href="{{ route('home.profile') }}" class="pl-6"><img class="h-8 w-8 object-cover rounded-full" src="{{Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : Gravatar::get(Auth::user()->email)}}" alt="Image de profil de {{ Auth::user()->email}}"></a>
-    <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="pl-6"> <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></a>
-    <form id="logout-form"  action="{{ route('logout') }}" method="POST" class="hidden">
-    @csrf
-    </form>
-    @endauth
+        @if($unreadCount > 0)
+            <!-- Badge rouge -->
+            <span id="notif-badge"
+                class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                {{ $unreadCount }}
+            </span>
+        @endif
+    </button>
+</div>
 
-     </div>
-     </div>
-    </nav>
+            @if (Auth::user()->isAdmin())
+            <a title="Gestion des postes" href="{{ route('admin.posts.index') }}" class="pl-6" >
+            <svg fill="#ffffff" width="64px" height="64px" viewBox="-115.2 -115.2 2150.40 2150.40" xmlns="http://www.w3.org/2000/svg" class="h-9 w-8 object-cover rounded-full"><g id="SVGRepo_bgCarrier" stroke-width="0"/><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/><g id="SVGRepo_iconCarrier"><path d="m773.596 1069.654 711.086 711.085c39.632 39.632 104.336 39.632 144.078 0l138.276-138.385c19.268-19.269 29.888-44.778 29.888-71.93 0-27.26-10.62-52.77-29.888-72.039l-698.714-698.714 11.495-32.625c63.5-178.675 18.284-380.45-115.284-514.018-123.715-123.605-305.126-171.01-471.648-128.313l272.281 272.282c32.516 32.406 50.362 75.652 50.362 121.744 0 45.982-17.846 89.227-50.362 121.744L654.48 751.17c-67.222 67.003-176.375 67.003-243.488 0L138.711 478.889c-42.589 166.522 4.707 347.934 128.313 471.648 123.714 123.715 306.22 172.325 476.027 127.218l30.545-8.101ZM1556.611 1920c-54.084 0-108.168-20.692-149.333-61.857L740.095 1190.96c-198.162 41.712-406.725-19.269-550.475-163.019C14.449 852.771-35.256 582.788 65.796 356.27l32.406-72.696 390.194 390.193c24.414 24.305 64.266 24.305 88.68 0l110.687-110.686c11.824-11.934 18.283-27.59 18.283-44.34 0-16.751-6.46-32.516-18.283-44.34L297.569 84.207 370.265 51.8C596.893-49.252 866.875.453 1041.937 175.515c155.026 155.136 212.833 385.157 151.851 594.815l650.651 650.651c39.961 39.852 61.967 92.95 61.967 149.443 0 56.383-22.006 109.482-61.967 149.334l-138.275 138.385c-41.275 41.165-95.36 61.857-149.553 61.857Z" fill-rule="evenodd"/> </g></svg>
+            </a>
+            @endif
+            @auth
+            <a href="{{ route('home.profile') }}" class="pl-6"><img class="h-8 w-8 object-cover rounded-full" src="{{Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : Gravatar::get(Auth::user()->email)}}" alt="Image de profil de {{ Auth::user()->email}}"></a>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="pl-6"> <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></a>
+            <form id="logout-form"  action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+            </form>
+            @endauth
+
+        </div>
+    </div>
+</nav>
+
     <!-- Text Header -->
     <header class="w-full container mx-auto">
         <div class="flex flex-col items-center py-12">

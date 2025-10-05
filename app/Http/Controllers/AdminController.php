@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\View\View;
+use App\Events\PostCreated;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\NewPostCreated;
 use Illuminate\Http\RedirectResponse;
 use App\Notifications\PostCreatedMail;
 use Illuminate\Support\Facades\Storage;
@@ -91,7 +94,12 @@ class AdminController extends Controller
 
         $post = Post::updateOrCreate(['id' => $post?->id], $data);
         session()->put('status', $post->wasRecentlyCreated ? 'Post publié !' : 'Post mis à jour !');
-        auth()->user()->notify(new PostCreatedMail($post));
+         // notifier chaque utilisateur (juste DB)
+        User::where('id','!=',auth()->id())
+        ->get()->each->notify(new NewPostCreated($post));
+        // envoyer 1 seul broadcast global
+        broadcast(new PostCreated($post));
+        //auth()->user()->notify(new PostCreatedMail($post));
         if($request->isMethod('post')){
             $post->user_id = Auth::id();
             $post->note = 0;

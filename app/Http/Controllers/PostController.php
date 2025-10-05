@@ -87,6 +87,15 @@ class PostController extends Controller
         $user_rating = Rating::where('post_id', $post->id)->where('user_id', Auth::id())->first();
         $post->viewed();
         $categorys = Category::all();
+        // si une notif correspond à ce post pour cet utilisateur :
+        $notification = auth()->user()
+        ->unreadNotifications()
+        ->where('data->post_id', $post->id) // tu stockes post_id dans la data de la notif
+        ->first();
+
+    if ($notification) {
+        $notification->markAsRead();
+    }
         return view('posts.show', ['post' => $post, 'user_rating' => $user_rating, 'categorys' => $categorys]);
     }
 
